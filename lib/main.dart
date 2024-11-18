@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'mensa_menu_provider.dart';   // Import the provider
 import 'splash_screen.dart';         // Import SplashScreen
-import 'menu_screen.dart';           // Import the main MenuScreen
-import 'onboarding_screen.dart';     // Import OnboardingScreen which includes all onboarding steps
+// Import the main MenuScreen
+// Import OnboardingScreen which includes all onboarding steps
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: SplashScreen(),  // Start with SplashScreen
+        home: const SplashScreen(),  // Start with SplashScreen
       ),
     );
   }

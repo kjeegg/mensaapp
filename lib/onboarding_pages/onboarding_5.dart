@@ -4,6 +4,8 @@ import '../mensa_menu_provider.dart';
 import 'onboarding_6.dart'; // Import the next onboarding screen
 
 class Onboarding5 extends StatefulWidget {
+  const Onboarding5({super.key});
+
   @override
   _Onboarding5State createState() => _Onboarding5State();
 }
@@ -70,20 +72,20 @@ class _Onboarding5State extends State<Onboarding5> {
     // Navigate to the next onboarding screen
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Onboarding6()), // Replace with your actual next screen
+      MaterialPageRoute(builder: (context) => const Onboarding6()), // Replace with your actual next screen
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF1F4F8),
+      backgroundColor: const Color(0xFFF1F4F8),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Let us know your dietary preferences!',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -93,7 +95,7 @@ class _Onboarding5State extends State<Onboarding5> {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               'Select any food allergies or restrictions you have. This will help us filter the menu for you.',
               textAlign: TextAlign.center,
             ),
@@ -116,7 +118,7 @@ class _Onboarding5State extends State<Onboarding5> {
                     ),
                     child: Text(
                       allergenName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
@@ -128,14 +130,14 @@ class _Onboarding5State extends State<Onboarding5> {
             const SizedBox(height: 24),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF004990),
+                backgroundColor: const Color(0xFF004990),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
               ),
               onPressed: () => _savePreferencesAndContinue(context),
-              child: Text(
+              child: const Text(
                 'Continue',
                 style: TextStyle(
                   color: Colors.white,

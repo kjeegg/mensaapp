@@ -4,6 +4,8 @@ import '../mensa_menu_provider.dart';
 import '../menu_screen.dart';  // Replace with the actual screen after onboarding
 
 class Onboarding6 extends StatelessWidget {
+  const Onboarding6({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Get the selected allergens from the provider
@@ -49,14 +51,14 @@ class Onboarding6 extends StatelessWidget {
     };
 
     return Scaffold(
-      backgroundColor: Color(0xFFF1F4F8),
+      backgroundColor: const Color(0xFFF1F4F8),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Confirmation message
-            Text(
+            const Text(
               'Got it!',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -67,7 +69,7 @@ class Onboarding6 extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               'Your dietary restrictions have been saved. You can always change this whenever you want in the settings menu.',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -91,7 +93,7 @@ class Onboarding6 extends StatelessWidget {
                     ),
                     child: Text(
                       allergenNames[code] ?? code,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
@@ -100,7 +102,7 @@ class Onboarding6 extends StatelessWidget {
                 }).toList(),
               )
             else
-              Text(
+              const Text(
                 "No allergens selected.",
                 style: TextStyle(
                   color: Colors.grey,
@@ -112,7 +114,7 @@ class Onboarding6 extends StatelessWidget {
             // Continue button
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF004990),
+                backgroundColor: const Color(0xFF004990),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100),
                 ),
@@ -122,10 +124,10 @@ class Onboarding6 extends StatelessWidget {
                 // Navigate to the main screen
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => MenuScreen()), // Replace with your main app screen
+                  MaterialPageRoute(builder: (context) => const MenuScreen()), // Replace with your main app screen
                 );
               },
-              child: Text(
+              child: const Text(
                 'Continue',
                 style: TextStyle(
                   color: Colors.white,

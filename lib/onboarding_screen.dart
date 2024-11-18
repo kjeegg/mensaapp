@@ -8,6 +8,8 @@ import 'onboarding_pages/onboarding_5.dart';
 import 'onboarding_pages/onboarding_6.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
@@ -17,12 +19,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    Onboarding1(),
-    Onboarding2(),
-    Onboarding3(),
-    Onboarding4(),
-    Onboarding5(),
-    Onboarding6(),
+    const Onboarding1(),
+    const Onboarding2(),
+    const Onboarding3(),
+    const Onboarding4(),
+    const Onboarding5(),
+    const Onboarding6(),
   ];
 
   void _goToNextPage() {
@@ -34,7 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MenuScreen()),
+        MaterialPageRoute(builder: (context) => const MenuScreen()),
       );
     }
   }
@@ -47,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           // Non-swipeable PageView
           PageView.builder(
             controller: _pageController,
-            physics: NeverScrollableScrollPhysics(),  // Disables swipe gestures
+            physics: const NeverScrollableScrollPhysics(),  // Disables swipe gestures
             itemCount: _pages.length,
             itemBuilder: (context, index) => _pages[index],
           ),
@@ -64,19 +66,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => MenuScreen()),
+                        MaterialPageRoute(builder: (context) => const MenuScreen()),
                       );
                     },
-                    child: Text("Skip", style: TextStyle(color: Colors.grey)),
+                    child: const Text("Skip", style: TextStyle(color: Colors.grey)),
                   )
                 else
-                  SizedBox(width: 48),  // Empty space placeholder for alignment
+                  const SizedBox(width: 48),  // Empty space placeholder for alignment
 
                 // Indicator dots
                 Row(
                   children: List.generate(_pages.length, (index) {
                     return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 4),
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
                       width: _currentIndex == index ? 30 : 8,
                       height: 8,
                       decoration: BoxDecoration(
@@ -91,7 +93,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 // Continue Button
                 TextButton(
                   onPressed: _goToNextPage,
-                  child: Text(
+                  child: const Text(
                     "Continue",
                     style: TextStyle(color: Colors.blue),
                   ),

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Onboarding2 extends StatelessWidget {
+  const Onboarding2({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF1F4F8),
+      backgroundColor: const Color(0xFFF1F4F8),
       body: Center(
         child: Container(
           width: 412,
           height: 917,
           padding: const EdgeInsets.symmetric(horizontal: 24),
           decoration: BoxDecoration(
-            color: Color(0xFFF1F4F8),
+            color: const Color(0xFFF1F4F8),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Stack(
@@ -24,7 +26,7 @@ class Onboarding2 extends StatelessWidget {
                   width: 412,
                   height: 52,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -39,9 +41,9 @@ class Onboarding2 extends StatelessWidget {
                       Row(
                         children: [
                           Icon(Icons.signal_cellular_4_bar, color: Color(0xFF1D1B20), size: 17),
-                          const SizedBox(width: 4),
+                          SizedBox(width: 4),
                           Icon(Icons.wifi, color: Color(0xFF1D1B20), size: 17),
-                          const SizedBox(width: 4),
+                          SizedBox(width: 4),
                           Icon(Icons.battery_full, color: Color(0xFF1D1B20), size: 17),
                         ],
                       ),
@@ -50,7 +52,7 @@ class Onboarding2 extends StatelessWidget {
                 ),
               ),
               // Title and description
-              Positioned(
+              const Positioned(
                 left: 37,
                 top: 576,
                 child: Column(
@@ -68,7 +70,7 @@ class Onboarding2 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 21),
+                    SizedBox(height: 21),
                     SizedBox(
                       width: 320,
                       child: Text(
@@ -91,7 +93,7 @@ class Onboarding2 extends StatelessWidget {
                 child: Container(
                   width: 300,
                   height: 300,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage("https://picsum.photos/300/300"),
                       fit: BoxFit.cover,
@@ -108,7 +110,7 @@ class Onboarding2 extends StatelessWidget {
                     Container(
                       width: 9,
                       height: 9,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xFFCDCDCD),
                         shape: BoxShape.circle,
                       ),
@@ -118,7 +120,7 @@ class Onboarding2 extends StatelessWidget {
                       width: 30,
                       height: 9,
                       decoration: BoxDecoration(
-                        color: Color(0xFF4FA5FB),
+                        color: const Color(0xFF4FA5FB),
                         borderRadius: BorderRadius.circular(5),
                       ),
                     ),
@@ -126,7 +128,7 @@ class Onboarding2 extends StatelessWidget {
                     Container(
                       width: 9,
                       height: 9,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xFFCDCDCD),
                         shape: BoxShape.circle,
                       ),
@@ -140,7 +142,7 @@ class Onboarding2 extends StatelessWidget {
                 top: 790,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF004990),
+                    backgroundColor: const Color(0xFF004990),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
@@ -149,7 +151,7 @@ class Onboarding2 extends StatelessWidget {
                   onPressed: () {
                     // Add navigation or other functionality as needed
                   },
-                  child: Text(
+                  child: const Text(
                     'Continue',
                     style: TextStyle(
                       color: Colors.white,

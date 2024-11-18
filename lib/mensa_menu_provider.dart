@@ -27,7 +27,6 @@ class MensaMenuProvider with ChangeNotifier {
   }
 
   Future<void> fetchMenu() async {
-    // Initialize date formatting for the locale
     await initializeDateFormatting('de_DE', null);
 
     final response = await http.get(
@@ -35,87 +34,85 @@ class MensaMenuProvider with ChangeNotifier {
     );
 
     if (response.statusCode == 200) {
-      print("Data successfully loaded");
+      print("Данные успешно загружены");
 
-      // Parse the HTML document
       var document = parse(utf8.decode(response.bodyBytes));
 
-      // Get today's date in 'dd.MM.yyyy' format
+      // Date in Format dd.MM.yyyy
       DateTime now = DateTime.now();
-      String currentDate = DateFormat('dd.MM.yyyy', 'de_DE').format(now);
-      print("Today's date: $currentDate");
+      String currentDate = DateFormat('dd.MM.yyyy', 'de_DE').format(now); // Текущая дата
 
-      // Clear previous menu items to avoid duplication
+      print("Сегодняшняя дата: $currentDate");
+
       menuItems.clear();
       bool isTodaySection = false;
 
-      // Get all header elements (assumed to represent dates or categories)
+      // Logik fur html trim
       var headers = document.querySelectorAll('h3');
       for (var header in headers) {
         var headerText = header.text?.trim();
 
-        // Skip headers that indicate the next week's menu
+
         if (header.id != null && header.id.contains("Naechste")) {
-          print("Skipping next week's header: $headerText");
+          print("Пропускаем следующий заголовок недели: $headerText");
           continue;
         }
 
-        // Extract and match the date from the header text
         if (headerText != null && headerText.contains(',')) {
-          // e.g., "Montag, 21.10.2024" -> "21.10.2024"
+          // Trim (например, "Montag, 21.10.2024" -> "21.10.2024")
           var headerDate = headerText.split(',').last.trim();
 
           if (headerDate == currentDate) {
             isTodaySection = true;
-          } else if (isTodaySection && headerDate != currentDate) {
-            // Break the loop once we move past today's section
+          }
+
+          else if (isTodaySection && headerDate != currentDate) {
             break;
           }
         }
 
-        // Process menu items if within today's section
+
         if (isTodaySection) {
-          var tableRows = header.nextElementSibling?.querySelectorAll('tr');
-          if (tableRows != null) {
-            for (var row in tableRows) {
+          var table = header.nextElementSibling?.querySelectorAll('tr');
+          if (table != null) {
+            for (var row in table) {
               var descriptionElement = row.querySelector('.menue-desc');
               var priceElement = row.querySelector('.menue-price');
 
               if (descriptionElement != null) {
-                // Extract category, description, price, and allergens
                 var category = row.querySelector('.menue-category')?.text?.trim() ?? 'No category';
                 var price = priceElement?.text?.trim() ?? 'No price';
 
-                // Parse allergens from <sup> elements within the description
+                // allergens are in <sup> tags
                 var allergenElements = descriptionElement.querySelectorAll('sup');
                 var allergens = allergenElements.map((e) => e.text).join(', ');
 
-                // Remove allergen markers from description text
+                // Clear allergens from description
                 for (var allergen in allergenElements) {
                   allergen.remove();
                 }
 
+
                 var descriptionText = descriptionElement.text.trim();
 
-                print("Category: $category, Description: $descriptionText, Allergens: $allergens, Price: $price");
+                print("Категория: $category, Описание: $descriptionText, Аллергены: $allergens, Цена: $price");
 
-                // Mark certain categories as "No price"
                 if (category.contains('Hauptbeilagen') || category.contains('Nebenbeilage')) {
                   price = 'No price';
                 }
 
-                // Add the parsed item to the menu list
                 menuItems.add(MenuItem(
                   category: category,
                   description: descriptionText,
                   price: price,
-                  allergens: allergens.isEmpty ? 'No allergens' : allergens,  // Show 'No allergens' if allergens are empty
+                  allergens: allergens.isEmpty ? 'No allergens' : allergens,  // Show 'No allergens' if allergens is empty
                 ));
               }
             }
           }
         }
       }
+
 
       // Notify listeners to update the UI after data is loaded
       notifyListeners();
