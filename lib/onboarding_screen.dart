@@ -1,6 +1,8 @@
+`onboarding_screen.dart`
+
 import 'package:flutter/material.dart';
 import 'menu_screen.dart';
-import 'onboarding_pages/onboarding_1.dart';  // Import all onboarding screens
+import 'onboarding_pages/onboarding_1.dart'; // Import all onboarding screens
 import 'onboarding_pages/onboarding_2.dart';
 import 'onboarding_pages/onboarding_3.dart';
 import 'onboarding_pages/onboarding_4.dart';
@@ -49,7 +51,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           // Non-swipeable PageView
           PageView.builder(
             controller: _pageController,
-            physics: const NeverScrollableScrollPhysics(),  // Disables swipe gestures
+            physics:
+                const NeverScrollableScrollPhysics(), // Disables swipe gestures
             itemCount: _pages.length,
             itemBuilder: (context, index) => _pages[index],
           ),
@@ -66,36 +69,42 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const MenuScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const MenuScreen()),
                       );
                     },
-                    child: const Text("Skip", style: TextStyle(color: Colors.grey)),
+                    child: const Text("Skip",
+                        style: TextStyle(color: Colors.grey)),
                   )
                 else
-                  const SizedBox(width: 48),  // Empty space placeholder for alignment
-
-                // Indicator dots
-                Row(
-                  children: List.generate(_pages.length, (index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      width: _currentIndex == index ? 30 : 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: _currentIndex == index ? Colors.blue : Colors.grey,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    );
-                  }),
-                ),
+                  const SizedBox(
+                      width: 48), // Empty space placeholder for alignment
 
                 // Continue Button
-                TextButton(
-                  onPressed: _goToNextPage,
-                  child: const Text(
-                    "Continue",
-                    style: TextStyle(color: Colors.blue),
+                Positioned(
+                  left: 113,
+                  top: 790,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(
+                          0xFF004990), // Updated to `backgroundColor`
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 12),
+                    ),
+                    onPressed: () {
+                      _goToNextPage();
+                    },
+                    child: const Text(
+                      'Continue',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Outfit',
+                      ),
+                    ),
                   ),
                 ),
               ],

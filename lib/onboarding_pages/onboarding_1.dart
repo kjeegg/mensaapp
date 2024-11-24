@@ -30,28 +30,29 @@ class Onboarding1 extends StatelessWidget {
                 child: Column(
                   children: [
                     Align(
-  alignment: Alignment.center,
-  child: SizedBox(
-    width: 338,
-    child: Text.rich(
-      TextSpan(
-        children: [
-          TextSpan(
-            text: 'Welcome to MyMensa App',
-            style: TextStyle(
-              color: mensaText,
-              fontWeight: FontWeight.bold,
-              fontSize: 48,
-              fontFamily: 'Outfit',
-              letterSpacing: 0.48,
-            ),
-          ),
-        ],
-      ),
-      textAlign: TextAlign.center, // Align the text within its container
-    ),
-  ),
-)
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 338,
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Welcome to MyMensa App',
+                                style: TextStyle(
+                                  color: mensaText,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 48,
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.48,
+                                ),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign
+                              .center, // Align the text within its container
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 21),
                     SizedBox(
                       width: 320,
