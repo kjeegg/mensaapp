@@ -55,33 +55,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             itemBuilder: (context, index) => _pages[index],
           ),
           Positioned(
-            bottom: 30,
+            bottom: 80,
             left: 16,
             right: 16,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Show Skip only on Onboarding5
-                if (_currentIndex == 3 || _currentIndex == 4)
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MenuScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Skip",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-
-                Expanded(
-                  child: Center(
-                    child: ElevatedButton(
+                ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF004990),
                         shape: RoundedRectangleBorder(
@@ -102,9 +84,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                     ),
+                if (_currentIndex == 3 || _currentIndex == 4)
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MenuScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Skip",
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   ),
-                ),
-
               ],
             ),
           ),

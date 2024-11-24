@@ -63,7 +63,7 @@ class Onboarding4 extends StatelessWidget {
                         'Enable location services so we can show you the nearest mensa locations, complete with directions, hours, and accessibility details. Perfect for when you’re on the go and need a quick meal nearby!',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: mensaText,
                           fontSize: 16,
                           fontFamily: 'Outfit',
                         ),

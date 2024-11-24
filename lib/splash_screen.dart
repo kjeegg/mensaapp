@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'onboarding_screen.dart';  // Import OnboardingScreen
+import '../constants/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,31 +26,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xFF004990),
+      backgroundColor: mensaPrimary,
       body: Center(
-        child: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: 'My',
-                style: TextStyle(
-                  color: Color(0xFF4FA5FB),
-                  fontSize: 48,
-                  fontFamily: 'Fugaz One',
-                  letterSpacing: 0.48,
-                ),
-              ),
-              TextSpan(
-                text: 'Mensa',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 48,
-                  fontFamily: 'Fugaz One',
-                  letterSpacing: 0.48,
-                ),
-              ),
-            ],
-          ),
+        child: Image(
+          image: AssetImage('lib/assets/images/logo_mymensa.png'),
         ),
       ),
     );

@@ -63,7 +63,7 @@ class Onboarding6 extends StatelessWidget {
                         'Your dietary restrictions has been saved. You can always change this whenever you want in the settings menu.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: mensaText,
                           fontSize: 16,
                           fontFamily: 'Outfit',
                         ),

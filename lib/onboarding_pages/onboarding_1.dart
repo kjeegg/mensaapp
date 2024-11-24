@@ -34,7 +34,7 @@ class Onboarding1 extends StatelessWidget {
                       width: 30,
                       height: 9,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF4FA5FB),
+                        color: mensaAccent,
                         borderRadius: BorderRadius.circular(5),
                       ),
                     ),
@@ -43,7 +43,7 @@ class Onboarding1 extends StatelessWidget {
                       width: 9,
                       height: 9,
                       decoration: const BoxDecoration(
-                        color: Color(0xFFCDCDCD),
+                        color: mensaGray,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -52,7 +52,7 @@ class Onboarding1 extends StatelessWidget {
                       width: 9,
                       height: 9,
                       decoration: const BoxDecoration(
-                        color: Color(0xFFCDCDCD),
+                        color: mensaGray,
                         shape: BoxShape.circle,
                       ),
                     ),

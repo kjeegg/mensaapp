@@ -98,6 +98,7 @@ class Onboarding5State extends State<Onboarding5> {
                 'Let us know your dietary preferences!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontFamily: 'Outfit',
                   color: Colors.black,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
