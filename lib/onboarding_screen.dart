@@ -60,6 +60,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             right: 16,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Show Skip only on Onboarding5
                 if (_currentIndex == 4)
@@ -68,43 +69,42 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MenuScreen()),
+                          builder: (context) => const MenuScreen(),
+                        ),
                       );
                     },
-                    child: const Text("Skip",
-                        style: TextStyle(color: Colors.grey)),
-                  )
-                else
-                  const SizedBox(
-                      width: 48), // Empty space placeholder for alignment
-
-                // Continue Button
-                Positioned(
-                  left: 113,
-                  top: 790,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(
-                          0xFF004990), // Updated to `backgroundColor`
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 12),
-                    ),
-                    onPressed: () {
-                      _goToNextPage();
-                    },
                     child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Outfit',
+                      "Skip",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+
+                Expanded(
+                  child: Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF004990),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 12),
+                      ),
+                      onPressed: () {
+                        _goToNextPage();
+                      },
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Outfit',
+                        ),
                       ),
                     ),
                   ),
                 ),
+
               ],
             ),
           ),

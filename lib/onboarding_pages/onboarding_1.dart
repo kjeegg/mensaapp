@@ -69,64 +69,37 @@ class Onboarding1 extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned(
-                left: 176,
-                top: 550,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 30,
-                      height: 9,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF4FA5FB),
-                        borderRadius: BorderRadius.circular(5),
+              Expanded(
+                child: Center(
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 30,
+                        height: 9,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF4FA5FB),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Container(
-                      width: 9,
-                      height: 9,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFCDCDCD),
-                        shape: BoxShape.circle,
+                      const SizedBox(width: 8),
+                      Container(
+                        width: 9,
+                        height: 9,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFCDCDCD),
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Container(
-                      width: 9,
-                      height: 9,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFCDCDCD),
-                        shape: BoxShape.circle,
+                      const SizedBox(width: 8),
+                      Container(
+                        width: 9,
+                        height: 9,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFCDCDCD),
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              // Continue button
-              Positioned(
-                left: 113,
-                top: 790,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color(0xFF004990), // Updated to `backgroundColor`
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 12),
-                  ),
-                  onPressed: () {
-                    // Add navigation or other functionality as needed
-                  },
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Outfit',
-                    ),
+                    ],
                   ),
                 ),
               ),
