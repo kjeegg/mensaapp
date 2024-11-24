@@ -63,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Show Skip only on Onboarding5
-                if (_currentIndex == 4)
+                if (_currentIndex == 3 || _currentIndex == 4)
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacement(
