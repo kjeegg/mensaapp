@@ -1,5 +1,3 @@
-`onboarding_screen.dart`
-
 import 'package:flutter/material.dart';
 import 'menu_screen.dart';
 import 'onboarding_pages/onboarding_1.dart'; // Import all onboarding screens
