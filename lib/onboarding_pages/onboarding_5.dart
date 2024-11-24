@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../mensa_menu_provider.dart';
-import 'onboarding_6.dart'; // Import the next onboarding screen
+import 'onboarding_6.dart';
 
 class Onboarding5 extends StatefulWidget {
   const Onboarding5({super.key});
 
+  // Публичный метод для вызова savePreferencesAndContinue
+  void savePreferencesAndContinue(BuildContext context) {
+    // Находим состояние и вызываем метод
+    final state = context.findAncestorStateOfType<Onboarding5State>();
+    state?.savePreferencesAndContinue(context);
+  }
+
   @override
-  _Onboarding5State createState() => _Onboarding5State();
+  Onboarding5State createState() => Onboarding5State();
 }
 
-class _Onboarding5State extends State<Onboarding5> {
+class Onboarding5State extends State<Onboarding5> {
   List<String> selectedAllergens = [];
 
-  // Original allergens dictionary with codes and names
   final Map<String, String> allergens = {
     "1": "Farbstoff",
     "2": "Konservierungsstoff",
@@ -41,11 +47,11 @@ class _Onboarding5State extends State<Onboarding5> {
     "I": "Schalenfrüchte",
     "I1": "Mandeln",
     "I2": "Haselnüsse",
-    "I3": "Walnüsse",
+    "I3": "Walнüsse",
     "I4": "Kaschunüsse",
     "I5": "Pecannüsse",
     "I6": "Paranüsse",
-    "I7": "Pistazien",
+    "I7": "Pistазии",
     "I8": "Macadamianüsse",
     "J": "Senf",
     "K": "Sesamsamen",
@@ -53,7 +59,6 @@ class _Onboarding5State extends State<Onboarding5> {
     "M": "Lupinen",
     "N": "Weichtiere",
   };
-
 
   void _toggleAllergenSelection(String allergenCode) {
     setState(() {
@@ -63,89 +68,73 @@ class _Onboarding5State extends State<Onboarding5> {
         selectedAllergens.add(allergenCode);
       }
     });
+    Provider.of<MensaMenuProvider>(context, listen: false).updateSelectedAllergens(selectedAllergens);
   }
 
-  void _savePreferencesAndContinue(BuildContext context) {
-    // Save the selected allergens to the provider
-    Provider.of<MensaMenuProvider>(context, listen: false).updateSelectedAllergens(selectedAllergens);
 
-    // Navigate to the next onboarding screen
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Onboarding6()), // Replace with your actual next screen
-    );
+  void savePreferencesAndContinue(BuildContext context) {
+    final mensaMenuProvider = Provider.of<MensaMenuProvider>(context, listen: false);
+
+    // Сохраняем данные в провайдер
+    mensaMenuProvider.updateSelectedAllergens(selectedAllergens);
+
+    print("Allergens saved to provider: ${mensaMenuProvider.selectedAllergens}");
+
+    // Переход на следующий экран
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const Onboarding6()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF1F4F8),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Let us know your dietary preferences!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Let us know your dietary preferences!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Select any food allergies or restrictions you have. This will help us filter the menu for you.',
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
-              children: allergens.entries.map((entry) {
-                final allergenCode = entry.key;
-                final allergenName = entry.value;
-                final isSelected = selectedAllergens.contains(allergenCode);
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: allergens.entries.map((entry) {
+                  final allergenCode = entry.key;
+                  final allergenName = entry.value;
+                  final isSelected = selectedAllergens.contains(allergenCode);
 
-                return GestureDetector(
-                  onTap: () => _toggleAllergenSelection(allergenCode),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: isSelected ? Colors.red : Colors.blue,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      allergenName,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                  return GestureDetector(
+                    onTap: () => _toggleAllergenSelection(allergenCode),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Colors.red : Colors.blue,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        allergenName,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF004990),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  );
+                }).toList(),
               ),
-              onPressed: () => _savePreferencesAndContinue(context),
-              child: const Text(
-                'Continue',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ],
+              const SizedBox(height: 24),
+
+            ],
+          ),
         ),
       ),
     );

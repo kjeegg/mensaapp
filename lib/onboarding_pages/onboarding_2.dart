@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../constants/colors.dart';
 
 class Onboarding2 extends StatelessWidget {
   const Onboarding2({super.key});
@@ -7,28 +6,106 @@ class Onboarding2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mensaBG,
+      backgroundColor: const Color(0xFFF1F4F8),
       body: Center(
         child: Container(
+          width: 412,
+          height: 917,
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
+          decoration: BoxDecoration(
+            color: const Color(0xFFF1F4F8),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Stack(
             children: [
-              SizedBox(height:150,),
-              Container(
-                alignment: Alignment.center,
-                width: 300,
-                height: 300,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("lib/assets/images/onboarding_2.png"),
-                    fit: BoxFit.cover,
+              // Status bar mockup
+              Positioned(
+                left: 0,
+                top: 0,
+                child: Container(
+                  width: 412,
+                  height: 52,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '9:30',
+                        style: TextStyle(
+                          color: Color(0xFF1D1B20),
+                          fontSize: 14,
+                          fontFamily: 'Roboto',
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(Icons.signal_cellular_4_bar, color: Color(0xFF1D1B20), size: 17),
+                          SizedBox(width: 4),
+                          Icon(Icons.wifi, color: Color(0xFF1D1B20), size: 17),
+                          SizedBox(width: 4),
+                          Icon(Icons.battery_full, color: Color(0xFF1D1B20), size: 17),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Center(
+              // Title and description
+              const Positioned(
+                left: 37,
+                top: 576,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 338,
+                      child: Text(
+                        "See What’s on the Menu!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 32,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 21),
+                    SizedBox(
+                      width: 320,
+                      child: Text(
+                        'Browse daily menus with images, descriptions, and personalized dietary information at a glance. Check what’s cooking today, tomorrow, or even last week!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontFamily: 'Outfit',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Illustration
+              Positioned(
+                left: 56,
+                top: 223,
+                child: Container(
+                  width: 300,
+                  height: 300,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage("https://picsum.photos/300/300"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              // Indicator dots
+              Positioned(
+                left: 176,
+                top: 550,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       width: 9,
@@ -59,51 +136,29 @@ class Onboarding2 extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20,),
-              const Positioned(
-                left: 37,
-                top: 576,
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        width: 300,
-                        child: Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'See What\'s on the Menu!',
-                                style: TextStyle(
-                                  color: mensaText,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32,
-                                  fontFamily: 'Outfit',
-                                  letterSpacing: 0.48,
-                                  height: 1.1,
-                                ),
-                              ),
-                            ],
-                          ),
-                          textAlign: TextAlign
-                              .center, // Align the text within its container
-                        ),
-                      ),
+              // Continue button
+              Positioned(
+                left: 113,
+                top: 790,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF004990),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
                     ),
-                    SizedBox(height: 21),
-                    SizedBox(
-                      width: 320,
-                      child: Text(
-                        'Browse daily menus with images, descriptions, and  personalized dietary information at a glance. Check what\’s cooking today, tomorrow, or even last week!',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontFamily: 'Outfit',
-                        ),
-                      ),
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  ),
+                  onPressed: () {
+                    // Add navigation or other functionality as needed
+                  },
+                  child: const Text(
+                    'Continue',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: 'Outfit',
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],

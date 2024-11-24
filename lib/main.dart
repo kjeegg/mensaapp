@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'mensa_menu_provider.dart';   // Import the provider
-import 'splash_screen.dart';         // Import SplashScreen
+import 'splash_screen.dart';
+import 'menu_screen.dart';
+import 'onboarding_screen.dart';
+// Import SplashScreen
 // Import the main MenuScreen
 // Import OnboardingScreen which includes all onboarding steps
 

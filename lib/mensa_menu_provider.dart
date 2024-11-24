@@ -7,114 +7,143 @@ import 'package:intl/date_symbol_data_local.dart';
 
 class MensaMenuProvider with ChangeNotifier {
   List<MenuItem> menuItems = [];
+  List<String> selectedAllergens = []; // Список выбранных аллергенов
 
-  List<String> selectedAllergens = []; // List to store selected allergens
-
-  // Method to update the selected allergens
+  /// Обновление выбранных аллергенов
   void updateSelectedAllergens(List<String> allergens) {
-  selectedAllergens = allergens;
-  _updateAllergenWarnings();
-  notifyListeners();
+    selectedAllergens = allergens.map((e) => e.trim()).toList(); // Удаление пробелов
+    print("Provider updated with allergens: $selectedAllergens");
+    print("Updating allergen warnings. Menu items count: ${menuItems.length}");
+    _updateAllergenWarnings();
+    print("Allergen warnings updated");
+    notifyListeners();
+
+
   }
 
-  // Private method to check each menu item for selected allergens
+  /// Обновление флага `containsSelectedAllergens` для пунктов меню
   void _updateAllergenWarnings() {
-  for (var item in menuItems) {
-  item.containsSelectedAllergens = selectedAllergens.any(
-  (allergen) => item.allergens.contains(allergen),
-  );
-  }
+    for (var item in menuItems) {
+      // Разделяем строку аллергенов в список
+      final itemAllergens = item.allergens
+          .split(',')
+          .map((e) => e.trim().toLowerCase()) // Убираем пробелы и переводим в нижний регистр
+          .where((e) => e.isNotEmpty) // Исключаем пустые строки
+          .toList();
+      print("Item: ${item.description}, Allergens: $itemAllergens");
+      // Преобразуем выбранные аллергены для сравнения
+      final normalizedSelectedAllergens =
+      selectedAllergens.map((e) => e.trim().toLowerCase()).toList();
+
+      // Проверяем пересечение между выбранными аллергенами и аллергенами блюда
+      item.containsSelectedAllergens = normalizedSelectedAllergens.any(
+            (allergen) => itemAllergens.contains(allergen),
+      );
+
+      // Лог для отладки
+      print(
+          "Item: ${item.description}, Allergens: ${itemAllergens}, Selected Allergens: $normalizedSelectedAllergens, containsSelectedAllergens: ${item.containsSelectedAllergens}");
+    }
   }
 
+
+  /// Загрузка меню
   Future<void> fetchMenu() async {
+    // Инициализация локализации для формата даты
     await initializeDateFormatting('de_DE', null);
 
     final response = await http.get(
-      Uri.parse('https://www.studierendenwerk-aachen.de/speiseplaene/eupenerstrasse-w.html'),
+      Uri.parse(
+          'https://www.studierendenwerk-aachen.de/speiseplaene/eupenerstrasse-w.html'),
     );
 
     if (response.statusCode == 200) {
-      print("Данные успешно загружены");
+      print("Data successfully loaded");
 
+      // Парсинг HTML-документа
       var document = parse(utf8.decode(response.bodyBytes));
 
-      // Date in Format dd.MM.yyyy
+      // Получение текущей даты в формате 'dd.MM.yyyy'
       DateTime now = DateTime.now();
-      String currentDate = DateFormat('dd.MM.yyyy', 'de_DE').format(now); // Текущая дата
+      String currentDate = DateFormat('dd.MM.yyyy', 'de_DE').format(now);
+      print("Today's date: $currentDate");
 
-      print("Сегодняшняя дата: $currentDate");
-
+      // Очистка предыдущего списка меню
       menuItems.clear();
       bool isTodaySection = false;
 
-      // Logik fur html trim
+      // Получение всех заголовков (h3), предполагаемых как даты
       var headers = document.querySelectorAll('h3');
       for (var header in headers) {
-        var headerText = header.text?.trim();
+        var headerText = header.text.trim();
 
-
-        if (header.id != null && header.id.contains("Naechste")) {
-          print("Пропускаем следующий заголовок недели: $headerText");
+        // Пропускаем заголовки следующей недели
+        if (header.id.contains("Naechste")) {
+          print("Skipping next week's header: $headerText");
           continue;
         }
 
-        if (headerText != null && headerText.contains(',')) {
-          // Trim (например, "Montag, 21.10.2024" -> "21.10.2024")
+        // Сравниваем дату из заголовка с текущей
+        if (headerText.contains(',')) {
           var headerDate = headerText.split(',').last.trim();
-
           if (headerDate == currentDate) {
             isTodaySection = true;
-          }
-
-          else if (isTodaySection && headerDate != currentDate) {
-            break;
+          } else if (isTodaySection && headerDate != currentDate) {
+            break; // Выходим, если прошли сегодняшнюю секцию
           }
         }
 
-
+        // Обработка пунктов меню в сегодняшней секции
         if (isTodaySection) {
-          var table = header.nextElementSibling?.querySelectorAll('tr');
-          if (table != null) {
-            for (var row in table) {
+          var tableRows = header.nextElementSibling?.querySelectorAll('tr');
+          if (tableRows != null) {
+            for (var row in tableRows) {
               var descriptionElement = row.querySelector('.menue-desc');
               var priceElement = row.querySelector('.menue-price');
 
               if (descriptionElement != null) {
-                var category = row.querySelector('.menue-category')?.text?.trim() ?? 'No category';
-                var price = priceElement?.text?.trim() ?? 'No price';
+                // Извлечение категории, описания, цены и аллергенов
+                var category = row.querySelector('.menue-category')?.text.trim() ?? 'No category';
+                var price = priceElement?.text.trim() ?? 'No price';
 
-                // allergens are in <sup> tags
                 var allergenElements = descriptionElement.querySelectorAll('sup');
-                var allergens = allergenElements.map((e) => e.text).join(', ');
+                var allergens = allergenElements
+                    .map((e) => e.text.trim().toLowerCase()) // Убираем пробелы и приводим к нижнему регистру
+                    .where((e) => e.isNotEmpty) // Исключаем пустые строки
+                    .join(','); // Соединяем обратно в строку
 
-                // Clear allergens from description
+
+                // Убираем маркеры аллергенов из текста описания
                 for (var allergen in allergenElements) {
                   allergen.remove();
                 }
 
-
                 var descriptionText = descriptionElement.text.trim();
 
-                print("Категория: $category, Описание: $descriptionText, Аллергены: $allergens, Цена: $price");
+                print(
+                    "Category: $category, Description: $descriptionText, Allergens: $allergens, Price: $price");
 
-                if (category.contains('Hauptbeilagen') || category.contains('Nebenbeilage')) {
+                // Обозначаем некоторые категории как "No price"
+                if (category.contains('Hauptbeilagen') ||
+                    category.contains('Nebenbeilage')) {
                   price = 'No price';
                 }
 
+                // Добавляем пункт меню в список
                 menuItems.add(MenuItem(
                   category: category,
                   description: descriptionText,
                   price: price,
-                  allergens: allergens.isEmpty ? 'No allergens' : allergens,  // Show 'No allergens' if allergens is empty
+                  allergens: allergens.isEmpty ? 'No allergens' : allergens,
                 ));
               }
             }
           }
         }
       }
-
-
-      // Notify listeners to update the UI after data is loaded
+      print("Menu items loaded: ${menuItems.length}");
+      _updateAllergenWarnings();
+      // Уведомляем слушателей после загрузки данных
       notifyListeners();
     } else {
       print('Loading error: ${response.statusCode}');
